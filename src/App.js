@@ -1,24 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+// import './App.css';
+import { ChakraProvider, Flex } from "@chakra-ui/react";
+import LoginSignup from "./components/LoginSignup";
+import { Routes, Route } from "react-router-dom";
+import DashBoard from "./components/DashBoard";
+import Profile from "./components/Profile";
+import FullScreenSection from "./components/FullScreenSection";
+import Sidebar from "./components/Sidebar";
+import BookList from "./components/BookList";
+import { Suspense } from "react";
+import Loading from "./components/Loading";
+import BookDetails from "./components/BookDetails";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ChakraProvider>
+      <FullScreenSection
+        backgroundColor={"#2C5282"}
+        display={"flex"}
+        padding={0}
+        margin={0}
+      >
+        {/* Fix */}
+        <Routes>
+          <Route exact path="/" element={<LoginSignup />} />
+          <Route
+            exact
+            path="/dashboard"
+            element={
+              <Suspense fallback={<Loading />}>
+                <DashBoard />
+              </Suspense>
+            }
+          />
+          <Route
+            exact
+            path="/profile"
+            element={
+              <Flex>
+                <Sidebar />
+                <Profile />
+              </Flex>
+            }
+          />
+          <Route exact path="/bookdetails" element={<BookDetails />} />
+        </Routes>
+      </FullScreenSection>
+    </ChakraProvider>
   );
 }
 
