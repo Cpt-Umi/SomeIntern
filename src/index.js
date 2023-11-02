@@ -5,13 +5,16 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { BookContextProvider } from "./context/dataContext";
+import { CategoryContextProvider } from "./context/categoryContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <BookContextProvider>
-        <App />
+        <CategoryContextProvider>
+          <App />
+        </CategoryContextProvider>
       </BookContextProvider>
     </BrowserRouter>
   </React.StrictMode>

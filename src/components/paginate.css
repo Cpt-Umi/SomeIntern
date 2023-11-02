@@ -1,0 +1,29 @@
+.paginationBtns {
+    width: 50%;
+    height: 25px;
+    list-style: none;
+    display: flex;
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+}
+
+.paginationBtns a {
+    padding: 5px;
+    margin: 3px;
+    border: 1px solid whitesmoke;
+    border-radius: 3px;
+    color: aliceblue;
+    cursor: pointer;
+}
+
+.paginationBtns a:hover {
+    background-color: aliceblue;
+    color: darkcyan;
+}
+
+.activePagination a {
+    background-color: aliceblue;
+    color: darkcyan;
+}

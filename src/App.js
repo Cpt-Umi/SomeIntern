@@ -1,15 +1,16 @@
 // import './App.css';
 import { ChakraProvider, Flex } from "@chakra-ui/react";
-import LoginSignup from "./components/LoginSignup";
+import LoginSignup from "./components/loginsignup/LoginSignup";
 import { Routes, Route } from "react-router-dom";
 import DashBoard from "./components/DashBoard";
 import Profile from "./components/Profile";
 import FullScreenSection from "./components/FullScreenSection";
 import Sidebar from "./components/Sidebar";
-import BookList from "./components/BookList";
+// import BookList from "./components/BookList";
 import { Suspense } from "react";
 import Loading from "./components/Loading";
 import BookDetails from "./components/BookDetails";
+import Categories from "./components/category/Categories";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
               </Suspense>
             }
           />
+          <Route exact path="/categories" element={<Categories />} />
           <Route
             exact
             path="/profile"

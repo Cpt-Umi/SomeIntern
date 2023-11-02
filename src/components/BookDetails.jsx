@@ -8,9 +8,7 @@ import coverImg from "../assets/cover-placeholder.png";
 import { BookContext } from "../context/dataContext";
 
 const BookDetails = () => {
-  const { details, setDetail } = useContext(BookContext);
-  // let cover = null;
-
+  const { details, setDetail, author, setAuthor } = useContext(BookContext);
   const location = useLocation();
   const id = location.state;
 
@@ -25,6 +23,8 @@ const BookDetails = () => {
         ? result.authors[0].author.key
         : "Anonymous";
 
+      getAuthor(result);
+
       // Check for description else replace with 'Unavailable'
       if (!!result.description) {
         // If object return value
@@ -37,35 +37,31 @@ const BookDetails = () => {
       }
 
       setDetail(result);
-      // getAuthor();
-      // console.log("Specific Result", result);
     } catch (error) {
       console.error(error);
     }
   };
 
-  // const getAuthor = async () => {
-  //   if (details.author != "Anonymous") {
-  //     try {
-  //       const authorDetail = await axios.get(
-  //         `${baseUrl + details.author}.json`
-  //       );
-  //       author = authorDetail.data.personal_name;
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   }
-  // };
+  const getAuthor = async (result) => {
+    if (result.authors !== "Anonymous") {
+      try {
+        const authorDetail = await axios.get(
+          `${baseUrl + result.authors}.json`
+        );
+        const authorData = authorDetail.data;
+        setAuthor(authorData.name);
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      setAuthor("Anonymous");
+    }
+  };
 
+  // Call on Mount
   useEffect(() => {
     getBookDetails();
-    // getAuthor();
-    // console.log(author);
-  });
-
-  // useEffect(() => {
-  //   getAuthor();
-  // });
+  }, []); // Dependency array is empty to make sure the hook is triggered only once
 
   return (
     <Box as="section" w={"100%"} bg={"blue.700"} justifyContent={"center"}>
@@ -86,11 +82,15 @@ const BookDetails = () => {
           <Heading fontSize={["md", "xl", "3xl"]}>
             Title: {details.title}
           </Heading>
-          <Text mt={"8"} fontSize={["s", "s", "md"]}>
+          <Text mt={"8"} fontSize={["s", "s", "md"]} color={"white"}>
             <strong>Description:</strong> {details.description}
           </Text>
-          <Text>
+          <Text color={"white"}>
             <strong>ID:</strong> {id}
+          </Text>
+          <Text color={"white"}>
+            <strong>Author: </strong>
+            {author}
           </Text>
         </Box>
       </Box>

@@ -11,22 +11,23 @@ import {
   Stack,
   Divider,
 } from "@chakra-ui/react";
-import { coverApi } from "../api/api";
-import coverImg from "../assets/cover-placeholder.png";
+import { coverIdApi } from "../../api/api";
+import coverImg from "../../assets/cover-placeholder.png";
 import { useContext } from "react";
-import { BookContext } from "../context/dataContext";
+import { CategoryContext } from "../../context/categoryContext";
 import ReactPaginate from "react-paginate";
-import "./paginate.css";
+import "../paginate.css";
 
-const BookCard = () => {
-  const { books } = useContext(BookContext);
+// Must be a better way to do this....
+const CategoriesCard = () => {
+  const { catBooks } = useContext(CategoryContext);
   const [pageNumber, setPageNumber] = useState(null);
 
   const booksPerPage = 8;
   const booksVisited = pageNumber * booksPerPage;
-  const pageCount = Math.ceil(books.length / booksPerPage);
+  const pageCount = Math.ceil(catBooks.length / booksPerPage);
 
-  const displayBooks = books
+  const displayBooks = catBooks
     .slice(booksVisited, booksVisited + booksPerPage)
     .map((book) => {
       return (
@@ -40,13 +41,17 @@ const BookCard = () => {
           >
             <CardBody>
               <Image
-                src={`${coverApi}${book.isbn[0]}-M.jpg`}
+                src={
+                  book?.cover_id
+                    ? `${coverIdApi}${book.cover_id}-M.jpg`
+                    : coverImg
+                }
                 alt="Cover Image"
                 w={"150px"}
                 h={"200px"}
                 bgImg={coverImg}
                 bgSize={"cover"}
-                bgRepeat={"no-repeat"}
+                bgRepeat={"no-repeat"} // Fix
                 bgPos={"center"}
                 borderRadius="lg"
                 ml={"auto"}
@@ -59,9 +64,9 @@ const BookCard = () => {
                 </Heading>
                 <Text color="black" fontSize="xl">
                   Author Name:{" "}
-                  {book.author_name ? book.author_name : "Anonymous"}
+                  {book.authors ? book.authors[0].name : "Anonymous"}
                 </Text>
-                <Text>ISBN: {book.isbn[0]}</Text>
+                <Text>ISBN: {book.isbn ? book.isbn : "Null"}</Text>
               </Stack>
             </CardBody>
             <CardFooter></CardFooter>
@@ -97,7 +102,7 @@ const BookCard = () => {
   );
 };
 
-export default BookCard;
+export default CategoriesCard;
 
 // {books.map(({ title, author_name, isbn }, key) => (
 //   <>

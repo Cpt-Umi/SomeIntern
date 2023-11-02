@@ -21,12 +21,12 @@ const Sidebar = () => {
       link: "/dashboard",
     },
     {
-      title: "Profile",
-      link: "/profile",
+      title: "Categories",
+      link: "/categories",
     },
     {
-      title: "List Books",
-      link: "/booklist",
+      title: "Profile",
+      link: "/profile",
     },
     {
       title: "Reviews",

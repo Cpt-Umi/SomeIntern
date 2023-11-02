@@ -9,16 +9,17 @@ export const BookContextProvider = ({ children }) => {
   const [books, setBooks] = useState([]);
   const [options, setOptions] = useState([]);
   const [details, setDetail] = useState([]);
+  const [author, setAuthor] = useState("");
+
   //   let inputValue = 'Lanny';
 
   const handleOnChange = () => {
     // Fix
     setBooks(
-      search
-        .filter((book) => {
-          if (!!book.isbn) return book;
-        })
-        .slice(0, 50)
+      search.filter((book) => {
+        if (!!book.isbn) return book;
+      })
+      // .slice(0, 50)
     );
   };
 
@@ -38,7 +39,7 @@ export const BookContextProvider = ({ children }) => {
         }));
 
         console.log("newOptions..................", newOptions);
-        console.log(search);
+        // console.log(search);
 
         setOptions(newOptions);
         // Return to display options on search
@@ -60,6 +61,8 @@ export const BookContextProvider = ({ children }) => {
     setOptions,
     details,
     setDetail,
+    author,
+    setAuthor,
     handleOnChange,
     loadOptions,
   };

@@ -38,7 +38,7 @@ function DashBoard() {
       <Box m={"8"} justifyContent={"center"} alignItems={"center"}>
         <Suspense fallback={<Loading />}>
           {/* Fix */}
-          <BookCard books={books} />
+          <BookCard />
         </Suspense>
       </Box>
     </Box>
