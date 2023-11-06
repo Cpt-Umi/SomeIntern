@@ -13,8 +13,11 @@ import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
+import { login } from "../../redux/store";
+import { useDispatch } from "react-redux";
 
 const LoginForm = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
@@ -32,7 +35,7 @@ const LoginForm = () => {
         .required("Password required"),
     }),
     onSubmit: (values) => {
-      console.log(JSON.stringify(values, null, 2));
+      dispatch(login(values.name));
       navigate("/dashboard");
     },
   });

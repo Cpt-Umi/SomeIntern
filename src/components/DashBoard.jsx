@@ -1,14 +1,21 @@
 import { AsyncPaginate } from "react-select-async-paginate";
-import { Box } from "@chakra-ui/react";
+import { Box, Flex, HStack, Text, Button } from "@chakra-ui/react";
 import Sidebar from "./Sidebar";
 import BookCard from "./books/BookCard";
 import { useContext, useEffect } from "react";
 import { BookContext } from "../context/dataContext";
 import LoadingBar from "react-top-loading-bar";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../redux/store";
+import { useNavigate } from "react-router-dom";
 
 function DashBoard() {
   const { books, handleOnChange, options, loadOptions, setDefaults } =
     useContext(BookContext);
+
+  const selector = useSelector((state) => state.user.value);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (books.length === 0) {
@@ -30,9 +37,22 @@ function DashBoard() {
         height={3}
         transitionTime={2000}
       />
-      <Box m={"10px"}>
+      <Flex m={"10px"} justify={"space-between"}>
         <Sidebar />
-      </Box>
+        <HStack>
+          <Text mr={"5"} fontSize={"lg"} color={"aliceblue"}>
+            Logged In as, {selector}
+          </Text>
+          <Button
+            onClick={() => {
+              dispatch(logout());
+              navigate("/");
+            }}
+          >
+            Logout
+          </Button>
+        </HStack>
+      </Flex>
       <Box as="section" w={"100%"} display={"flex"}>
         <Box w={"50%"} ml={"auto"} mr={"auto"}>
           <AsyncPaginate

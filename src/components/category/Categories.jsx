@@ -1,14 +1,21 @@
 import { Suspense, useEffect } from "react";
-import { Box, HStack, Heading } from "@chakra-ui/react";
+import { Box, Flex, HStack, Heading, Text, Button } from "@chakra-ui/react";
 import Sidebar from "../Sidebar";
 import CategoriesCard from "./CategoriesCard";
 import Loading from "../Loading";
 import { useContext } from "react";
 import { CategoryContext } from "../../context/categoryContext";
 import CatBtn from "./CatBtn";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../redux/store";
+import { useNavigate } from "react-router-dom";
 
 function Categories() {
   const { bookCategory, setDefaults } = useContext(CategoryContext);
+
+  const selector = useSelector((state) => state.user.value);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setDefaults();
@@ -22,9 +29,22 @@ function Categories() {
       justifyContent={"center"}
       p={"2"}
     >
-      <Box m={"10px"}>
+      <Flex m={"10px"} justify={"space-between"}>
         <Sidebar />
-      </Box>
+        <HStack>
+          <Text mr={"5"} fontSize={"lg"} color={"aliceblue"}>
+            Logged In as, {selector}
+          </Text>
+          <Button
+            onClick={() => {
+              dispatch(logout());
+              navigate("/");
+            }}
+          >
+            Logout
+          </Button>
+        </HStack>
+      </Flex>
       {/* Async-Paginate here if needed */}
       <HStack w={"100%"} mt={"5px"} justify={"center"}>
         <CatBtn
