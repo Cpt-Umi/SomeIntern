@@ -40,15 +40,10 @@ const Sidebar = () => {
 
   return (
     <>
-      <Button color={"white"} variant={"outline"} onClick={onOpen}>
+      <Button color={"white"} variant={"outline"} onClick={onOpen} ml={"7"}>
         Menu
       </Button>
-      <Drawer
-        isOpen={isOpen}
-        placement="left"
-        onClose={onClose}
-        // finalFocusRef={btnRef}
-      >
+      <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
@@ -82,12 +77,7 @@ const Sidebar = () => {
             })}
           </DrawerBody>
 
-          <DrawerFooter>
-            {/* <Button variant="outline" mr={3} onClick={onClose}>
-              Close
-            </Button> */}
-            {/* <Button colorScheme="blue"></Button> */}
-          </DrawerFooter>
+          <DrawerFooter></DrawerFooter>
         </DrawerContent>
       </Drawer>
     </>
@@ -95,43 +85,3 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
-
-// import { Box, VStack, Link as ChakraLink } from "@chakra-ui/react";
-// import React from "react";
-// import { Link as RouterLink } from "react-router-dom";
-// // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// // import {}
-
-// function Sidebar() {
-//   // const navigate = useNavigate();
-
-//   return (
-//     <Box ml={"0"} minW={["100", "200", "300"]} bg={"purple.900"}>
-//       <VStack p={"0"} gap={"0"}>
-//         {sidebarContents.map((val, key) => {
-//           return (
-//             <ChakraLink
-//               as={RouterLink}
-//               to={val.link}
-//               borderBottom={"1px solid black"}
-//               minW={"100%"}
-//               minH={"14"}
-//               textAlign={"center"}
-//               lineHeight={"45px"}
-//               color={"white"}
-//               p={"1.5"}
-//               m={"0"}
-//               _hover={{
-//                 background: "blue.600",
-//               }}
-//               id={val.title}
-//               key={key}
-//             >
-//               {val.title}
-//             </ChakraLink>
-//           );
-//         })}
-//       </VStack>
-//     </Box>
-//   );
-// }

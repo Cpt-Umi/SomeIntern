@@ -1,8 +1,16 @@
 import React from "react";
-import ReactLoading from "react-loading";
+import LoadingBar from "react-top-loading-bar";
 
 function Loading() {
-  return <ReactLoading type="cylon" color="#FF" height={100} width={50} />;
+  console.log("I did Run!!!");
+  return (
+    <LoadingBar
+      color="#f11946"
+      progress={100}
+      height={3}
+      transitionTime={2000}
+    />
+  );
 }
 
 export default Loading;

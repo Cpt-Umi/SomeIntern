@@ -1,15 +1,10 @@
-// import './App.css';
-import { ChakraProvider, Flex } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
 import LoginSignup from "./components/loginsignup/LoginSignup";
 import { Routes, Route } from "react-router-dom";
 import DashBoard from "./components/DashBoard";
 import Profile from "./components/Profile";
 import FullScreenSection from "./components/FullScreenSection";
-import Sidebar from "./components/Sidebar";
-// import BookList from "./components/BookList";
-import { Suspense } from "react";
-import Loading from "./components/Loading";
-import BookDetails from "./components/BookDetails";
+import BookDetails from "./components/books/BookDetails";
 import Categories from "./components/category/Categories";
 
 function App() {
@@ -24,26 +19,9 @@ function App() {
         {/* Fix */}
         <Routes>
           <Route exact path="/" element={<LoginSignup />} />
-          <Route
-            exact
-            path="/dashboard"
-            element={
-              <Suspense fallback={<Loading />}>
-                <DashBoard />
-              </Suspense>
-            }
-          />
+          <Route exact path="/dashboard" element={<DashBoard />} />
           <Route exact path="/categories" element={<Categories />} />
-          <Route
-            exact
-            path="/profile"
-            element={
-              <Flex>
-                <Sidebar />
-                <Profile />
-              </Flex>
-            }
-          />
+          <Route exact path="/profile" element={<Profile />} />
           <Route exact path="/bookdetails" element={<BookDetails />} />
         </Routes>
       </FullScreenSection>

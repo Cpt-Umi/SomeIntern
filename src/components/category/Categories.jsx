@@ -1,22 +1,14 @@
 import { Suspense, useEffect } from "react";
-import { AsyncPaginate } from "react-select-async-paginate";
-import { Box, Button, HStack } from "@chakra-ui/react";
+import { Box, HStack, Heading } from "@chakra-ui/react";
 import Sidebar from "../Sidebar";
 import CategoriesCard from "./CategoriesCard";
 import Loading from "../Loading";
 import { useContext } from "react";
 import { CategoryContext } from "../../context/categoryContext";
+import CatBtn from "./CatBtn";
 
 function Categories() {
-  const {
-    bookCategory,
-    setBookCategory,
-    catBooks,
-    catHandleOnChange,
-    catLoadOptions,
-    catOptions,
-    setDefaults,
-  } = useContext(CategoryContext);
+  const { bookCategory, setDefaults } = useContext(CategoryContext);
 
   useEffect(() => {
     setDefaults();
@@ -33,62 +25,42 @@ function Categories() {
       <Box m={"10px"}>
         <Sidebar />
       </Box>
-      <Box as="section" w={"100%"} display={"flex"}>
-        <Box w={"50%"} ml={"auto"} mr={"auto"}>
-          <AsyncPaginate
-            placeholder="Search Books"
-            debounceTimeout={800}
-            value={catBooks}
-            onChange={catHandleOnChange}
-            loadOptions={catLoadOptions}
-            options={catOptions}
-            // defaultInputValue="Dark Tower"
-          />
-        </Box>
-      </Box>
+      {/* Async-Paginate here if needed */}
       <HStack w={"100%"} mt={"5px"} justify={"center"}>
-        <Button
-          borderRadius={"sm"}
-          onClick={() => {
-            setBookCategory("fiction");
-          }}
-        >
-          Fiction
-        </Button>
-        <Button
-          borderRadius={"sm"}
-          onClick={() => {
-            setBookCategory("science");
-          }}
-        >
-          Science
-        </Button>
-        <Button
-          borderRadius={"sm"}
-          onClick={() => {
-            setBookCategory("history");
-          }}
-        >
-          History
-        </Button>
-        <Button
-          borderRadius={"sm"}
-          onClick={() => {
-            setBookCategory("comedy");
-          }}
-        >
-          Comedy
-        </Button>
-        <Button
-          borderRadius={"sm"}
-          onClick={() => {
-            setBookCategory("mathematics");
-          }}
-        >
-          Mathematics
-        </Button>
-        {/* <p>{bookCategory}</p> */}
+        <CatBtn
+          label="Mystery"
+          url="mystery"
+          active={bookCategory === "mystery" ? true : false}
+        />
+        <CatBtn
+          label="Fiction"
+          url="fiction"
+          active={bookCategory === "fiction" ? true : false}
+        />
+        <CatBtn
+          label="Non-Fiction"
+          url="nonfiction"
+          active={bookCategory === "nonfiction" ? true : false}
+        />
+        <CatBtn
+          label="Love"
+          url="love"
+          active={bookCategory === "love" ? true : false}
+        />
+        <CatBtn
+          label="Comedy"
+          url="comedy"
+          active={bookCategory === "comedy" ? true : false}
+        />
+        <CatBtn
+          label="Horror"
+          url="horror"
+          active={bookCategory === "horror" ? true : false}
+        />
       </HStack>
+      <Heading textTransform={"capitalize"} ml={"8"} color={"aliceblue"}>
+        {bookCategory}:
+      </Heading>
       <Box m={"8"} justifyContent={"center"} alignItems={"center"}>
         <Suspense fallback={<Loading />}>
           {/* Fix */}
@@ -100,3 +72,17 @@ function Categories() {
 }
 
 export default Categories;
+
+/* <Box as="section" w={"100%"} display={"flex"}>
+        <Box w={"50%"} ml={"auto"} mr={"auto"}>
+          <AsyncPaginate
+            placeholder="Search Books"
+            debounceTimeout={800}
+            value={catBooks}
+            onChange={catHandleOnChange}
+            loadOptions={catLoadOptions}
+            options={catOptions}
+            // defaultInputValue="Dark Tower"
+          />
+        </Box>
+      </Box> */

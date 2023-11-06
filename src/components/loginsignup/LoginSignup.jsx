@@ -7,7 +7,6 @@ const LoginSignup = () => {
   const [formType, setFormType] = useState("login");
 
   return (
-    // <Container minW={"100vw"} minH={"100vh"} >
     <Box
       as="section"
       margin={"auto"}
@@ -44,7 +43,6 @@ const LoginSignup = () => {
       {formType === "login" && <LoginForm />}
       {formType === "signup" && <SignupForm />}
     </Box>
-    // </Container>
   );
 };
 

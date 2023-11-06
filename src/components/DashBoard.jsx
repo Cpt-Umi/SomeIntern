@@ -1,15 +1,20 @@
-import { Suspense } from "react";
 import { AsyncPaginate } from "react-select-async-paginate";
 import { Box } from "@chakra-ui/react";
 import Sidebar from "./Sidebar";
-import BookCard from "./BookCard";
-import Loading from "./Loading";
-import { useContext } from "react";
+import BookCard from "./books/BookCard";
+import { useContext, useEffect } from "react";
 import { BookContext } from "../context/dataContext";
+import LoadingBar from "react-top-loading-bar";
 
 function DashBoard() {
-  const { books, handleOnChange, options, loadOptions } =
+  const { books, handleOnChange, options, loadOptions, setDefaults } =
     useContext(BookContext);
+
+  useEffect(() => {
+    if (books.length === 0) {
+      setDefaults();
+    }
+  }, []);
 
   return (
     <Box
@@ -19,6 +24,12 @@ function DashBoard() {
       justifyContent={"center"}
       p={"2"}
     >
+      <LoadingBar
+        color="#f11946"
+        progress={100}
+        height={3}
+        transitionTime={2000}
+      />
       <Box m={"10px"}>
         <Sidebar />
       </Box>
@@ -27,37 +38,18 @@ function DashBoard() {
           <AsyncPaginate
             placeholder="Search Books"
             debounceTimeout={800}
-            value={books}
+            value={""}
             onChange={handleOnChange}
             loadOptions={loadOptions}
             options={options}
-            // defaultInputValue="Dark Tower"
           />
         </Box>
       </Box>
       <Box m={"8"} justifyContent={"center"} alignItems={"center"}>
-        <Suspense fallback={<Loading />}>
-          {/* Fix */}
-          <BookCard />
-        </Suspense>
+        <BookCard />
       </Box>
     </Box>
   );
 }
 
 export default DashBoard;
-
-// const getCover = async () => {
-//   try {
-//     let ISBN = search
-//       .filter((books) => {
-//         if (!books.isbn) return books;
-//       })
-//       .map((book) => book.isbn[0]);
-//     const response = await axios.get(`${coverApi}${ISBN}-M.jpg`);
-//     setCovers(response);
-//     // console.log(response.data);
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };

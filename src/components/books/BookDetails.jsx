@@ -1,11 +1,11 @@
 import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
-import Sidebar from "./Sidebar";
+import Sidebar from "../Sidebar";
 import axios from "axios";
-import { baseUrl, coverIdApi } from "../api/api";
+import { baseUrl, coverIdApi } from "../../api/api";
 import { useContext, useEffect } from "react";
-import coverImg from "../assets/cover-placeholder.png";
-import { BookContext } from "../context/dataContext";
+import coverImg from "../../assets/cover-placeholder.png";
+import { BookContext } from "../../context/dataContext";
 
 const BookDetails = () => {
   const { details, setDetail, author, setAuthor } = useContext(BookContext);

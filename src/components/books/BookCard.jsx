@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   SimpleGrid,
@@ -11,12 +11,13 @@ import {
   Stack,
   Divider,
 } from "@chakra-ui/react";
-import { coverApi } from "../api/api";
-import coverImg from "../assets/cover-placeholder.png";
+import { coverApi } from "../../api/api";
+import coverImg from "../../assets/cover-placeholder.png";
 import { useContext } from "react";
-import { BookContext } from "../context/dataContext";
+import { BookContext } from "../../context/dataContext";
 import ReactPaginate from "react-paginate";
-import "./paginate.css";
+import "../paginate.css";
+import Loading from "../Loading";
 
 const BookCard = () => {
   const { books } = useContext(BookContext);
@@ -30,43 +31,45 @@ const BookCard = () => {
     .slice(booksVisited, booksVisited + booksPerPage)
     .map((book) => {
       return (
-        <Link to="/bookdetails" state={book.key}>
-          <Card
-            minW={[100, 150, 200]}
-            minH={"500px"}
-            bg={"whiteAlpha.200"}
-            justify={"center"}
-            // align={"center"}
-          >
-            <CardBody>
-              <Image
-                src={`${coverApi}${book.isbn[0]}-M.jpg`}
-                alt="Cover Image"
-                w={"150px"}
-                h={"200px"}
-                bgImg={coverImg}
-                bgSize={"cover"}
-                bgRepeat={"no-repeat"}
-                bgPos={"center"}
-                borderRadius="lg"
-                ml={"auto"}
-                mr={"auto"}
-              />
-              <Divider mt={"5"} />
-              <Stack mt="5" spacing="2">
-                <Heading size="md" color={"white"}>
-                  {book.title}
-                </Heading>
-                <Text color="black" fontSize="xl">
-                  Author Name:{" "}
-                  {book.author_name ? book.author_name : "Anonymous"}
-                </Text>
-                <Text>ISBN: {book.isbn[0]}</Text>
-              </Stack>
-            </CardBody>
-            <CardFooter></CardFooter>
-          </Card>
-        </Link>
+        <Suspense fallback={<Loading />}>
+          <Link to="/bookdetails" state={book.key}>
+            <Card
+              minW={[100, 150, 200]}
+              minH={"500px"}
+              bg={"whiteAlpha.200"}
+              justify={"center"}
+              // align={"center"}
+            >
+              <CardBody>
+                <Image
+                  src={`${coverApi}${book.isbn[0]}-M.jpg`}
+                  alt="Cover Image"
+                  w={"150px"}
+                  h={"200px"}
+                  bgImg={coverImg}
+                  bgSize={"cover"}
+                  bgRepeat={"no-repeat"}
+                  bgPos={"center"}
+                  borderRadius="lg"
+                  ml={"auto"}
+                  mr={"auto"}
+                />
+                <Divider mt={"5"} />
+                <Stack mt="5" spacing="2">
+                  <Heading size="md" color={"white"}>
+                    {book.title}
+                  </Heading>
+                  <Text color="black" fontSize="xl">
+                    Author Name:{" "}
+                    {book.author_name ? book.author_name : "Anonymous"}
+                  </Text>
+                  <Text>ISBN: {book.isbn[0]}</Text>
+                </Stack>
+              </CardBody>
+              <CardFooter></CardFooter>
+            </Card>
+          </Link>
+        </Suspense>
       );
     });
 

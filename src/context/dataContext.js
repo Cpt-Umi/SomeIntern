@@ -11,15 +11,12 @@ export const BookContextProvider = ({ children }) => {
   const [details, setDetail] = useState([]);
   const [author, setAuthor] = useState("");
 
-  //   let inputValue = 'Lanny';
-
   const handleOnChange = () => {
     // Fix
     setBooks(
       search.filter((book) => {
         if (!!book.isbn) return book;
       })
-      // .slice(0, 50)
     );
   };
 
@@ -31,15 +28,11 @@ export const BookContextProvider = ({ children }) => {
         );
         const result = response.data;
         setSearch(result.docs);
-        // console.log("RESULT..................", result);
 
         const newOptions = result?.docs.map((book) => ({
           value: book.title,
           label: book.title,
         }));
-
-        console.log("newOptions..................", newOptions);
-        // console.log(search);
 
         setOptions(newOptions);
         // Return to display options on search
@@ -49,6 +42,16 @@ export const BookContextProvider = ({ children }) => {
     } catch (error) {
       console.error(error);
       return { options: [] }; // Return an empty array or handle the error accordingly.
+    }
+  };
+
+  const setDefaults = async () => {
+    try {
+      const res = await axios.get(`${baseUrl}/search.json?title=stephen+king`);
+      const result = res.data.docs;
+      setBooks(result);
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -65,6 +68,7 @@ export const BookContextProvider = ({ children }) => {
     setAuthor,
     handleOnChange,
     loadOptions,
+    setDefaults,
   };
 
   return <BookContext.Provider value={value}>{children}</BookContext.Provider>;
