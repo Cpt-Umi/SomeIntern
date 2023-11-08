@@ -16,6 +16,9 @@ export const BookContextProvider = ({ children }) => {
     setBooks(
       search.filter((book) => {
         if (!!book.isbn) return book;
+        else {
+          return;
+        }
       })
     );
   };
@@ -49,7 +52,14 @@ export const BookContextProvider = ({ children }) => {
     try {
       const res = await axios.get(`${baseUrl}/search.json?title=stephen+king`);
       const result = res.data.docs;
-      setBooks(result);
+      setBooks(
+        result.filter((book) => {
+          if (!!book.isbn) return book;
+          else {
+            return;
+          }
+        })
+      );
     } catch (error) {
       console.error(error);
     }

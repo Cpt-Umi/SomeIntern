@@ -41,7 +41,7 @@ function DashBoard() {
         <Sidebar />
         <HStack>
           <Text mr={"5"} fontSize={"lg"} color={"aliceblue"}>
-            Logged In as, {selector}
+            {/* Logged In as, {selector} */}
           </Text>
           <Button
             onClick={() => {
