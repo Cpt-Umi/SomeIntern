@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { Box, Button, Heading, Image, Text } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
 import Sidebar from "../Sidebar";
 import axios from "axios";
@@ -6,9 +6,11 @@ import { baseUrl, coverIdApi } from "../../api/api";
 import { useContext, useEffect } from "react";
 import coverImg from "../../assets/cover-placeholder.png";
 import { BookContext } from "../../context/dataContext";
+import { CartContext } from "../../context/cartContext";
 
 const BookDetails = () => {
   const { details, setDetail, author, setAuthor } = useContext(BookContext);
+  const { cartItems, addToCart } = useContext(CartContext);
   const location = useLocation();
   const id = location.state;
 
@@ -68,7 +70,7 @@ const BookDetails = () => {
       <Box m={"10px"}>
         <Sidebar />
       </Box>
-      <Box m={"8"} border={"2px"} p={"3"}>
+      <Box m={"8"} border={"2px"} p={"3"} id={details.key}>
         <Image
           ml={"5"}
           src={
@@ -93,11 +95,23 @@ const BookDetails = () => {
             {author}
           </Text>
         </Box>
+        <Button
+          ml={"5"}
+          mt={"5"}
+          color={"aliceblue"}
+          variant={"outline"}
+          onClick={() => {
+            addToCart(details);
+          }}
+          isDisabled={cartItems.some(
+            (cartItem) => cartItem.key === details.key
+          )}
+        >
+          Add to WishList
+        </Button>
       </Box>
     </Box>
   );
 };
 
 export default BookDetails;
-
-// `${coverIdApi}${details.covers}-L.jpg`;

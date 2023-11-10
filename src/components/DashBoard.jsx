@@ -40,8 +40,17 @@ function DashBoard() {
       <Flex m={"10px"} justify={"space-between"}>
         <Sidebar />
         <HStack>
+          <Button
+            onClick={() => {
+              navigate("/cart");
+            }}
+            variant={"outline"}
+            color={"white"}
+          >
+            Cart
+          </Button>
           <Text mr={"5"} fontSize={"lg"} color={"aliceblue"}>
-            {/* Logged In as, {selector} */}
+            Logged In as, {selector}
           </Text>
           <Button
             onClick={() => {
