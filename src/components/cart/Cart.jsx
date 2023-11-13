@@ -14,12 +14,14 @@ import {
 } from "@chakra-ui/react";
 import { useContext } from "react";
 import { CartContext } from "../../context/cartContext";
+import Navbar from "../nav/Navbar";
 
 const Cart = () => {
   const { cartItems } = useContext(CartContext);
 
   return (
-    <Box w={"100%"} p={"5"}>
+    <Box w={"100%"} p={"2"}>
+      <Navbar />
       <Heading mb={"20px"} color={"white"}>
         WishList:
       </Heading>

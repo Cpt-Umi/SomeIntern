@@ -2,7 +2,6 @@ import React from "react";
 import LoadingBar from "react-top-loading-bar";
 
 function Loading() {
-  console.log("I did Run!!!");
   return (
     <LoadingBar
       color="#f11946"

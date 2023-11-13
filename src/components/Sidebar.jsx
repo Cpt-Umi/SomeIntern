@@ -24,18 +24,6 @@ const Sidebar = () => {
       title: "Categories",
       link: "/categories",
     },
-    {
-      title: "Profile",
-      link: "/profile",
-    },
-    {
-      title: "Reviews",
-      link: "/reviews",
-    },
-    {
-      title: "About",
-      link: "/about",
-    },
   ];
 
   return (

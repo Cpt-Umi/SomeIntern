@@ -1,21 +1,14 @@
 import { Suspense, useEffect } from "react";
-import { Box, Flex, HStack, Heading, Text, Button } from "@chakra-ui/react";
-import Sidebar from "../Sidebar";
+import { Box, HStack, Heading } from "@chakra-ui/react";
 import CategoriesCard from "./CategoriesCard";
 import Loading from "../Loading";
 import { useContext } from "react";
 import { CategoryContext } from "../../context/categoryContext";
 import CatBtn from "./CatBtn";
-import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../../redux/store";
-import { useNavigate } from "react-router-dom";
+import Navbar from "../nav/Navbar";
 
 function Categories() {
   const { bookCategory, setDefaults } = useContext(CategoryContext);
-
-  const selector = useSelector((state) => state.user.value);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     setDefaults();
@@ -29,31 +22,7 @@ function Categories() {
       justifyContent={"center"}
       p={"2"}
     >
-      <Flex m={"10px"} justify={"space-between"}>
-        <Sidebar />
-        <HStack>
-          <Button
-            onClick={() => {
-              navigate("/cart");
-            }}
-            variant={"outline"}
-            color={"white"}
-          >
-            Cart
-          </Button>
-          <Text mr={"5"} fontSize={"lg"} color={"aliceblue"}>
-            Logged In as, {selector}
-          </Text>
-          <Button
-            onClick={() => {
-              dispatch(logout());
-              navigate("/");
-            }}
-          >
-            Logout
-          </Button>
-        </HStack>
-      </Flex>
+      <Navbar />
       {/* Async-Paginate here if needed */}
       <HStack w={"100%"} mt={"5px"} justify={"center"}>
         <CatBtn
@@ -87,10 +56,10 @@ function Categories() {
           active={bookCategory === "horror" ? true : false}
         />
       </HStack>
-      <Heading textTransform={"capitalize"} ml={"8"} color={"aliceblue"}>
+      <Heading textTransform={"capitalize"} ml={"6"} color={"aliceblue"}>
         {bookCategory}:
       </Heading>
-      <Box m={"8"} justifyContent={"center"} alignItems={"center"}>
+      <Box m={"6"} justifyContent={"center"} alignItems={"center"}>
         <Suspense fallback={<Loading />}>
           {/* Fix */}
           <CategoriesCard />
